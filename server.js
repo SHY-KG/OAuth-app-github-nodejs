@@ -33,7 +33,12 @@ app.get('/login/github/callback', (req, res) => {
       res.json({ ok: Success });
     }).
     catch(err => res.status(500).json({ message: err.message }));
-
+  
+  opts = { headers: { accept: 'application/json', Authorization: `token ${token}`} };
+  
+  axios.get(`https://api.github.com/user`, opts )
+   .then(res => console.log(res.data))
+   .catch(err => res.status(500).json({ message: err.message }))
 });
 
 
